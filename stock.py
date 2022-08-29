@@ -6,10 +6,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+from webdriver_manager.chrome import ChromeDriverManager
 import time
 import winsound         # for sound  
 from colorama import init
-from yaggi import avisame
+#from yaggi import avisame
 
 init()
 
@@ -60,7 +61,7 @@ options.add_argument('--ignore-ssl-errors')
 prefs = {"profile.managed_default_content_settings.images": 2}
 options.add_experimental_option("prefs", prefs)
 
-driver = webdriver.Chrome(executable_path=PATH, chrome_options=options)
+driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
 
 while True:
     for x in links:
@@ -94,7 +95,7 @@ while True:
         if stck:
             print(t + bcolors.OKGREEN + " [" + x[0] + " - " + x[2] + " - " + str(price) + "€] : IN STOCK" + bcolors.ENDC)
             for i in range (0,3): winsound.Beep(600, 300) # frequency, duration
-            avisame(x[0], x[1], price)
+            #avisame(x[0], x[1], price)
         else:
             print(t + bcolors.WARNING + " [" + x[0] + " - " + x[2]  + " - " + str(price) + "€] : OUT OF STOCK" + bcolors.ENDC)
     print("Cooldown 40s")
